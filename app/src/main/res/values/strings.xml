@@ -1,3 +1,52 @@
 <resources>
-    <string name="app_name">SMS2Email</string>
+    <string name="app_name" translatable="false">SMS2Email</string>
+
+    <string name="crash_title">App Crashed</string>
+    <string name="licenses">Licenses</string>
+    <string name="licenses_more">Licenses...</string>
+    <string name="back">Back</string>
+    <string name="background_desc">Background</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="copied_to_clipboard">Copied to clipboard</string>
+    <string name="copy_to_clipboard">Copy to Clipboard</string>
+    <string name="restart_app">Restart App</string>
+
+    <string name="intro">SMS2Email automatically forwards received SMS to email via SMTP, even if the app is closed.</string>
+    <string name="sms_permission_granted">✓ SMS Permission: Granted</string>
+    <string name="sms_permission_not_granted">✗ SMS Permission: Not Granted</string>
+    <string name="notification_permission_granted">✓ Notification Permission: Granted</string>
+    <string name="notification_permission_not_granted">✗ Notification Permission: Not Granted</string>
+    <string name="request_sms_permission">Request SMS Permission</string>
+    <string name="request_notification_permission">Request Notification Permission</string>
+    <string name="sms_permission_denied">SMS permission denied</string>
+    <string name="notification_permission_denied">Notification permission denied</string>
+
+    <string name="smtp_preferences">SMTP Preferences</string>
+    <string name="smtp_host">SMTP Host</string>
+    <string name="smtp_port">SMTP Port</string>
+    <string name="encryption">Encryption</string>
+    <string name="encryption_none">None</string>
+    <string name="encryption_starttls" translatable="false">STARTTLS</string>
+    <string name="encryption_smtps">SMTPS (SSL/TLS)</string>
+    <string name="warning_no_encryption">Warning: No encryption selected. This may expose credentials and email content.</string>
+    <string name="warning_port_465_not_smtps">Warning: Port 465 is typically used with SMTPS (SSL/TLS).</string>
+    <string name="warning_smtps_not_port_465">Warning: SMTPS (SSL/TLS) typically uses port 465.</string>
+    <string name="smtp_username">SMTP Username</string>
+    <string name="warning_gmail_username">Warning: For Gmail, the SMTP username should be your full email address (same as From Email Address).</string>
+    <string name="smtp_password">SMTP Password</string>
+    <string name="warning_gmail_app_password">Your 16-digit Google \"App password\" needs to be entered, not your Google Account password.</string>
+    <string name="generate_app_password">Generate App Password</string>
+    <string name="from_email_address">From Email Address</string>
+    <string name="to_email_address">To Email Address</string>
+    <string name="sending_email">Sending email ...</string>
+    <string name="send_test_email">Send Test Email</string>
+    <string name="test_email_body">This is a test email.</string>
+    <string name="test_email_subject" translatable="false">[TEST]</string>
+
+    <string name="mail_subject" translatable="false">SMS from %1$s</string>
+    <string name="notification_transferred_title">Transferred SMS from %1$s</string>
+    <string name="notification_failed_title">Failed to send email</string>
+    <string name="toast_send_failed">Failed to send email\n%1$s</string>
+    <string name="notification_channel_name">SMS2Email Notifications</string>
+    <string name="notification_channel_description">Notifications for SMS2Email app events</string>
 </resources>

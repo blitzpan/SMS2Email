@@ -14,8 +14,10 @@ fun createNotificationChannel(context: Context) {
 
     val channel =
         NotificationChannel(
-            NOTIFICATION_CHANNEL_ID, "SMS2Email Notifications", NotificationManager.IMPORTANCE_LOW)
-    channel.description = "Notifications for SMS2Email app events"
+            NOTIFICATION_CHANNEL_ID,
+            context.getString(R.string.notification_channel_name),
+            NotificationManager.IMPORTANCE_LOW)
+    channel.description = context.getString(R.string.notification_channel_description)
 
     notificationManager.createNotificationChannel(channel)
   }

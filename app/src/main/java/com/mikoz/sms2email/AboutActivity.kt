@@ -15,6 +15,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.mikepenz.aboutlibraries.ui.compose.android.produceLibraries
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 import io.github.sms2email.sms2email.ui.theme.SMS2EmailTheme
@@ -31,12 +32,12 @@ class AboutActivity : ComponentActivity() {
             modifier = Modifier.fillMaxSize(),
             topBar = {
               TopAppBar(
-                  title = { Text("Licenses") },
+                  title = { Text(stringResource(R.string.licenses)) },
                   navigationIcon = {
                     IconButton(onClick = { finish() }) {
                       Icon(
                           imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                          contentDescription = "Back",
+                          contentDescription = stringResource(R.string.back),
                       )
                     }
                   },

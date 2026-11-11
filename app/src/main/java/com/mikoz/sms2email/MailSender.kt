@@ -59,7 +59,7 @@ private fun sendMailSync(context: Context, subject: String, content: String) {
     val message: Message = MimeMessage(session)
     message.setFrom(InternetAddress.parse("$subject <${config.fromEmail}>")[0])
     message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(config.toEmail))
-    message.subject = "SMS from $subject"
+    message.subject = context.getString(R.string.mail_subject, subject)
     message.setText(content)
     Transport.send(message)
 
@@ -68,7 +68,8 @@ private fun sendMailSync(context: Context, subject: String, content: String) {
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     val notification =
         NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
-            .setContentTitle("Transferred SMS from $subject")
+            .setContentTitle(
+                context.getString(R.string.notification_transferred_title, subject))
             .setContentText(content)
             .setSmallIcon(android.R.drawable.ic_dialog_email)
             .build()
@@ -79,7 +80,11 @@ private fun sendMailSync(context: Context, subject: String, content: String) {
         StringWriter().also { writer -> exception.printStackTrace(PrintWriter(writer)) }.toString()
 
     Handler(Looper.getMainLooper()).post {
-      Toast.makeText(context, "Failed to send email\n${exception.message}", Toast.LENGTH_LONG)
+      Toast.makeText(
+              context,
+              context.getString(R.string.toast_send_failed, exception.message),
+              Toast.LENGTH_LONG,
+          )
           .show()
     }
 
@@ -88,7 +93,7 @@ private fun sendMailSync(context: Context, subject: String, content: String) {
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     val notification =
         NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
-            .setContentTitle("Failed to send email")
+            .setContentTitle(context.getString(R.string.notification_failed_title))
             .setContentText(exception.message)
             .setStyle(
                 NotificationCompat.BigTextStyle().bigText("${exception.message}\n\n$stackTrace"))

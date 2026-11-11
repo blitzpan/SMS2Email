@@ -33,3 +33,54 @@ google-services.json
 # Android Profiling
 *.hprof
 *.dm
+
+# ============================================================
+# 本仓库根目录在上一级（aiDevLearnCollect，多个项目共用一个仓库）。
+# 本文件只对 SMS2Email/ 目录树生效，优先级高于仓库根的 .gitignore，
+# 与父仓库重复的规则是刻意保留的，便于本项目单独拆分出去时仍然自洽。
+# ============================================================
+
+# Kotlin / Gradle 增量编译缓存与中间产物
+.kotlin/
+*.ap_
+*.apk.idsig
+*.dex
+*.class
+.navigation/
+
+# 编辑器 / 操作系统垃圾文件
+.vscode/*
+!.vscode/extensions.json
+.history/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# 签名凭据 / 本地私有配置（严禁推送）
+keystore.properties
+signing.properties
+*.pem
+*.p12
+*.pfx
+.env
+.env.*
+!.env.example
+
+# 发布脚本（release.config.js / semantic-release）的本地依赖
+node_modules/
+.npm/
+npm-debug.log*
+
+# 临时 / 备份文件
+*.tmp
+*.temp
+*.bak
+*.orig
+
+# 以下文件必须入库，切勿加入忽略：
+# gradle/wrapper/gradle-wrapper.jar、gradlew、gradlew.bat
+# config/libraries/*.json、metadata/、.pre-commit-config.yaml

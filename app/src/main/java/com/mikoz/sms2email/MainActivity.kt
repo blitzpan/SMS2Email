@@ -53,6 +53,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
@@ -72,7 +73,7 @@ class MainActivity : ComponentActivity() {
           ActivityResultContracts.RequestPermission(),
       ) { isGranted: Boolean ->
         if (!isGranted) {
-          Toast.makeText(this, "SMS permission denied", Toast.LENGTH_SHORT).show()
+          Toast.makeText(this, getString(R.string.sms_permission_denied), Toast.LENGTH_SHORT).show()
         }
         smsPermissionGrantedFlow.value = isGranted
       }
@@ -82,7 +83,12 @@ class MainActivity : ComponentActivity() {
           ActivityResultContracts.RequestPermission(),
       ) { isGranted: Boolean ->
         if (!isGranted) {
-          Toast.makeText(this, "Notification permission denied", Toast.LENGTH_SHORT).show()
+          Toast.makeText(
+                  this,
+                  getString(R.string.notification_permission_denied),
+                  Toast.LENGTH_SHORT,
+              )
+              .show()
         }
         notificationPermissionGrantedFlow.value = isGranted
       }
@@ -114,7 +120,7 @@ class MainActivity : ComponentActivity() {
             if (isDark) {
               Image(
                   painter = painterResource(id = R.drawable.background_dark),
-                  contentDescription = "Background",
+                  contentDescription = stringResource(R.string.background_desc),
                   modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth(),
                   contentScale = ContentScale.FillWidth,
                   alpha = 0.3f,
@@ -206,10 +212,11 @@ fun MailPreferencesScreen(
   val encryptionExpandedState = rememberSaveable { mutableStateOf(false) }
   val encryptionLabel =
       when (config.encryptionMode) {
-        SmtpEncryptionMode.SMTP_ENCRYPTION_MODE_NONE -> "None"
-        SmtpEncryptionMode.SMTP_ENCRYPTION_MODE_SMTPS -> "SMTPS (SSL/TLS)"
-        SmtpEncryptionMode.SMTP_ENCRYPTION_MODE_STARTTLS -> "STARTTLS"
-        else -> "STARTTLS"
+        SmtpEncryptionMode.SMTP_ENCRYPTION_MODE_NONE -> stringResource(R.string.encryption_none)
+        SmtpEncryptionMode.SMTP_ENCRYPTION_MODE_SMTPS -> stringResource(R.string.encryption_smtps)
+        SmtpEncryptionMode.SMTP_ENCRYPTION_MODE_STARTTLS ->
+            stringResource(R.string.encryption_starttls)
+        else -> stringResource(R.string.encryption_starttls)
       }
 
   Box(modifier = modifier.fillMaxSize()) {
@@ -230,8 +237,7 @@ fun MailPreferencesScreen(
           shape = MaterialTheme.shapes.medium,
       ) {
         Text(
-            text =
-                "SMS2Email automatically forwards received SMS to email via SMTP, even if the app is closed.",
+            text = stringResource(R.string.intro),
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(12.dp),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -255,8 +261,8 @@ fun MailPreferencesScreen(
         Column(modifier = Modifier.padding(12.dp)) {
           Text(
               text =
-                  if (isSmsPermissionGranted) "✓ SMS Permission: Granted"
-                  else "✗ SMS Permission: Not Granted",
+                  if (isSmsPermissionGranted) stringResource(R.string.sms_permission_granted)
+                  else stringResource(R.string.sms_permission_not_granted),
               style = MaterialTheme.typography.bodyLarge,
               color =
                   if (isSmsPermissionGranted) {
@@ -272,7 +278,7 @@ fun MailPreferencesScreen(
                 onClick = { onRequestPermission() },
                 modifier = Modifier.fillMaxWidth(),
             ) {
-              Text("Request SMS Permission")
+              Text(stringResource(R.string.request_sms_permission))
             }
           }
         }
@@ -295,8 +301,9 @@ fun MailPreferencesScreen(
         Column(modifier = Modifier.padding(12.dp)) {
           Text(
               text =
-                  if (isNotificationPermissionGranted) "✓ Notification Permission: Granted"
-                  else "✗ Notification Permission: Not Granted",
+                  if (isNotificationPermissionGranted)
+                      stringResource(R.string.notification_permission_granted)
+                  else stringResource(R.string.notification_permission_not_granted),
               style = MaterialTheme.typography.bodyLarge,
               color =
                   if (isNotificationPermissionGranted) {
@@ -312,14 +319,14 @@ fun MailPreferencesScreen(
                 onClick = { onRequestNotificationPermission() },
                 modifier = Modifier.fillMaxWidth(),
             ) {
-              Text("Request Notification Permission")
+              Text(stringResource(R.string.request_notification_permission))
             }
           }
         }
       }
 
       Text(
-          text = "SMTP Preferences",
+          text = stringResource(R.string.smtp_preferences),
           style = MaterialTheme.typography.titleLarge,
           color = MaterialTheme.colorScheme.onBackground,
           modifier = Modifier.padding(bottom = 16.dp),
@@ -328,7 +335,7 @@ fun MailPreferencesScreen(
       OutlinedTextField(
           value = smtpHostState.value,
           onValueChange = { smtpHostState.value = it },
-          label = { Text("SMTP Host") },
+          label = { Text(stringResource(R.string.smtp_host)) },
           modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp),
           singleLine = true,
       )
@@ -336,7 +343,7 @@ fun MailPreferencesScreen(
       OutlinedTextField(
           value = smtpPortState.value,
           onValueChange = { smtpPortState.value = it },
-          label = { Text("SMTP Port") },
+          label = { Text(stringResource(R.string.smtp_port)) },
           modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp),
           singleLine = true,
           keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -352,7 +359,7 @@ fun MailPreferencesScreen(
             onValueChange = {},
             readOnly = true,
             singleLine = true,
-            label = { Text("Encryption") },
+            label = { Text(stringResource(R.string.encryption)) },
             trailingIcon = {
               ExposedDropdownMenuDefaults.TrailingIcon(expanded = encryptionExpandedState.value)
             },
@@ -368,7 +375,7 @@ fun MailPreferencesScreen(
             onDismissRequest = { encryptionExpandedState.value = false },
         ) {
           DropdownMenuItem(
-              text = { Text("STARTTLS") },
+              text = { Text(stringResource(R.string.encryption_starttls)) },
               onClick = {
                 encryptionExpandedState.value = false
                 coroutineScope.launch {
@@ -380,7 +387,7 @@ fun MailPreferencesScreen(
               },
           )
           DropdownMenuItem(
-              text = { Text("SMTPS (SSL/TLS)") },
+              text = { Text(stringResource(R.string.encryption_smtps)) },
               onClick = {
                 encryptionExpandedState.value = false
                 coroutineScope.launch {
@@ -392,7 +399,7 @@ fun MailPreferencesScreen(
               },
           )
           DropdownMenuItem(
-              text = { Text("None") },
+              text = { Text(stringResource(R.string.encryption_none)) },
               onClick = {
                 encryptionExpandedState.value = false
                 coroutineScope.launch {
@@ -409,14 +416,14 @@ fun MailPreferencesScreen(
       val warningText =
           when {
             config.encryptionMode == SmtpEncryptionMode.SMTP_ENCRYPTION_MODE_NONE ->
-                "Warning: No encryption selected. This may expose credentials and email content."
+                stringResource(R.string.warning_no_encryption)
             portNumber == 465 &&
                 config.encryptionMode != SmtpEncryptionMode.SMTP_ENCRYPTION_MODE_SMTPS ->
-                "Warning: Port 465 is typically used with SMTPS (SSL/TLS)."
+                stringResource(R.string.warning_port_465_not_smtps)
             portNumber != null &&
                 portNumber != 465 &&
                 config.encryptionMode == SmtpEncryptionMode.SMTP_ENCRYPTION_MODE_SMTPS ->
-                "Warning: SMTPS (SSL/TLS) typically uses port 465."
+                stringResource(R.string.warning_smtps_not_port_465)
             else -> null
           }
       if (warningText != null) {
@@ -431,7 +438,7 @@ fun MailPreferencesScreen(
       OutlinedTextField(
           value = smtpUserState.value,
           onValueChange = { smtpUserState.value = it },
-          label = { Text("SMTP Username") },
+          label = { Text(stringResource(R.string.smtp_username)) },
           modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp),
           singleLine = true,
       )
@@ -440,8 +447,7 @@ fun MailPreferencesScreen(
           smtpUserState.value.isNotBlank() &&
           smtpUserState.value != fromEmailState.value) {
         Text(
-            text =
-                "Warning: For Gmail, the SMTP username should be your full email address (same as From Email Address).",
+            text = stringResource(R.string.warning_gmail_username),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.error,
             modifier = Modifier.padding(bottom = 12.dp),
@@ -451,7 +457,7 @@ fun MailPreferencesScreen(
       OutlinedTextField(
           value = smtpPasswordState.value,
           onValueChange = { smtpPasswordState.value = it },
-          label = { Text("SMTP Password") },
+          label = { Text(stringResource(R.string.smtp_password)) },
           modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp),
           singleLine = true,
           visualTransformation = PasswordVisualTransformation(),
@@ -460,14 +466,13 @@ fun MailPreferencesScreen(
       if (config.smtpHost.contains("gmail", ignoreCase = true) &&
           config.smtpPassword.replace(" ", "").length != 16) {
         Text(
-            text =
-                "Your 16-digit Google \"App password\" needs to be entered, not your Google Account password.",
+            text = stringResource(R.string.warning_gmail_app_password),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.error,
             modifier = Modifier.padding(bottom = 8.dp),
         )
         Text(
-            text = "Generate App Password",
+            text = stringResource(R.string.generate_app_password),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.primary,
             textDecoration = TextDecoration.Underline,
@@ -483,7 +488,7 @@ fun MailPreferencesScreen(
       OutlinedTextField(
           value = fromEmailState.value,
           onValueChange = { fromEmailState.value = it },
-          label = { Text("From Email Address") },
+          label = { Text(stringResource(R.string.from_email_address)) },
           modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp),
           singleLine = true,
           keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
@@ -492,7 +497,7 @@ fun MailPreferencesScreen(
       OutlinedTextField(
           value = toEmailState.value,
           onValueChange = { toEmailState.value = it },
-          label = { Text("To Email Address") },
+          label = { Text(stringResource(R.string.to_email_address)) },
           modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp),
           singleLine = true,
           keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
@@ -500,12 +505,17 @@ fun MailPreferencesScreen(
 
       Button(
           onClick = {
-            Toast.makeText(context, "Sending email ...", Toast.LENGTH_SHORT).show()
-            sendMail(context, "[TEST]", "This is a test email.")
+            Toast.makeText(context, context.getString(R.string.sending_email), Toast.LENGTH_SHORT)
+                .show()
+            sendMail(
+                context,
+                context.getString(R.string.test_email_subject),
+                context.getString(R.string.test_email_body),
+            )
           },
           modifier = Modifier.fillMaxWidth(),
       ) {
-        Text("Send Test Email")
+        Text(stringResource(R.string.send_test_email))
       }
 
       Row(
@@ -513,7 +523,7 @@ fun MailPreferencesScreen(
           horizontalArrangement = Arrangement.End,
       ) {
         Text(
-            text = "Licenses...",
+            text = stringResource(R.string.licenses_more),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurface,
             modifier =

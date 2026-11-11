@@ -21,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import io.github.sms2email.sms2email.ui.theme.SMS2EmailTheme
@@ -30,7 +31,7 @@ class CrashActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
 
-    val crashMessage = intent.getStringExtra("crash_message") ?: "Unknown error"
+    val crashMessage = intent.getStringExtra("crash_message") ?: getString(R.string.unknown_error)
     val stackTrace = intent.getStringExtra("stack_trace") ?: ""
 
     setContent {
@@ -59,7 +60,7 @@ fun CrashScreen(
       modifier = modifier.fillMaxSize().padding(16.dp).verticalScroll(rememberScrollState()),
   ) {
     Text(
-        text = "App Crashed",
+        text = stringResource(R.string.crash_title),
         color = Color.Red,
         style = MaterialTheme.typography.titleLarge,
         modifier = Modifier.padding(bottom = 16.dp),
@@ -84,11 +85,16 @@ fun CrashScreen(
           val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
           val clip = ClipData.newPlainText("crash_info", "$crashMessage\n\n$stackTrace")
           clipboard.setPrimaryClip(clip)
-          Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+          Toast.makeText(
+                  context,
+                  context.getString(R.string.copied_to_clipboard),
+                  Toast.LENGTH_SHORT,
+              )
+              .show()
         },
         modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
     ) {
-      Text("Copy to Clipboard")
+      Text(stringResource(R.string.copy_to_clipboard))
     }
 
     Button(
@@ -102,7 +108,7 @@ fun CrashScreen(
         },
         modifier = Modifier.fillMaxWidth(),
     ) {
-      Text("Restart App")
+      Text(stringResource(R.string.restart_app))
     }
   }
 }

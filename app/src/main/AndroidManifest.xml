@@ -35,12 +35,12 @@
         <activity
             android:name=".CrashActivity"
             android:exported="false"
-            android:label="App Crashed"
+            android:label="@string/crash_title"
             android:theme="@style/Theme.SMS2Email" />
         <activity
             android:name=".AboutActivity"
             android:exported="false"
-            android:label="Licenses"
+            android:label="@string/licenses"
             android:theme="@style/Theme.SMS2Email" />
     <receiver
         android:name=".SmsReceiver"
