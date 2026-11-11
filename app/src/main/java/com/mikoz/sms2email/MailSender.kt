@@ -21,7 +21,7 @@ fun sendMail(context: Context, subject: String, content: String) {
   Thread { sendMailSync(context, subject, content) }.start()
 }
 
-private fun sendMailSync(context: Context, subject: String, content: String) {
+internal fun sendMailSync(context: Context, subject: String, content: String) {
   val config = PreferencesManager.getConfigBlocking(context)
   val smtpPort = config.smtpPort
   val properties = Properties()
