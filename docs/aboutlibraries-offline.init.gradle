@@ -1,0 +1,19 @@
+// Passed explicitly with -I by the watchdog (AboutLibrariesOffline switch).
+// Disables the AboutLibraries Gradle plugin's network lookups (GitHub rate_limit
+// API and remote SPDX license texts). In this environment those TLS connections
+// are terminated/hang, which stalls :app:prepareLibraryDefinitionsDebug.
+// This does NOT modify any project build file.
+
+gradle.beforeProject { p ->
+    p.plugins.withId('com.mikepenz.aboutlibraries.plugin.android') {
+        def ext = p.extensions.findByName('aboutLibraries')
+        if (ext != null) {
+            try {
+                ext.offlineMode = true
+                println "[INIT] aboutLibraries offlineMode=true for ${p.path}"
+            } catch (Exception e) {
+                println "[INIT] offlineMode not settable: ${e.message}"
+            }
+        }
+    }
+}
