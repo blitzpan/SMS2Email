@@ -96,5 +96,4 @@ dependencies {
   implementation(libs.androidx.appcompat)
   implementation(libs.aboutlibraries.core)
   implementation(libs.aboutlibraries.compose.m3)
-  implementation(libs.androidx.compose.material.icons.extended)
 }

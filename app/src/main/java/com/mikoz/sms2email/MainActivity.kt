@@ -117,15 +117,6 @@ class MainActivity : ComponentActivity() {
             modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
         ) {
           Box(modifier = Modifier.fillMaxSize()) {
-            if (isDark) {
-              Image(
-                  painter = painterResource(id = R.drawable.background_dark),
-                  contentDescription = stringResource(R.string.background_desc),
-                  modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth(),
-                  contentScale = ContentScale.FillWidth,
-                  alpha = 0.3f,
-              )
-            }
             Scaffold(
                 modifier = Modifier.fillMaxSize(),
                 containerColor = Color.Transparent,
