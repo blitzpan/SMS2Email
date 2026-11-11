@@ -29,10 +29,10 @@
     <string name="warning_port_465_not_smtps">警告：465 端口通常用于 SMTPS（SSL/TLS）。</string>
     <string name="warning_smtps_not_port_465">警告：SMTPS（SSL/TLS）通常使用 465 端口。</string>
     <string name="smtp_username">SMTP 用户名</string>
-    <string name="warning_gmail_username">警告：使用 Gmail 时，SMTP 用户名应填写完整邮箱地址（与发件邮箱一致）。</string>
+    <string name="warning_gmail_username">注意：QQ/163 等邮箱的 SMTP 用户名应填写完整邮箱地址（如 name@qq.com，与发件邮箱一致）。</string>
     <string name="smtp_password">SMTP 密码</string>
-    <string name="warning_gmail_app_password">此处需填写 16 位 Google「应用专用密码」，而不是 Google 账号密码。</string>
-    <string name="generate_app_password">生成应用专用密码</string>
+    <string name="warning_gmail_app_password">此处需填写邮箱的「授权码」（客户端专用密码），在邮箱网页设置中开启 SMTP 后获取，而非登录密码。</string>
+    <string name="generate_app_password">获取授权码（邮箱网页设置 → 开启 SMTP）</string>
     <string name="from_email_address">发件邮箱</string>
     <string name="to_email_address">收件邮箱</string>
     <string name="sending_email">正在发送邮件…</string>

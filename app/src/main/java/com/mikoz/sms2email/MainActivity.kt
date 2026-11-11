@@ -65,6 +65,24 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
+/**
+ * Returns true for email providers that require an "authorization code"
+ * (client-specific password) instead of the account login password for SMTP.
+ */
+private fun isAuthCodeProvider(host: String): Boolean {
+    val h = host.lowercase()
+    return h.contains("gmail") ||
+        h.contains("qq.com") ||
+        h.contains("163.com") ||
+        h.contains("126.com") ||
+        h.contains("yeah.net") ||
+        h.contains("sina.com") ||
+        h.contains("sina.cn") ||
+        h.contains("sohu.com") ||
+        h.contains("foxmail.com") ||
+        h.contains("139.com")
+}
+
 class MainActivity : ComponentActivity() {
   private val smsPermissionGrantedFlow = MutableStateFlow(false)
   private val notificationPermissionGrantedFlow = MutableStateFlow(false)
@@ -434,7 +452,7 @@ fun MailPreferencesScreen(
           singleLine = true,
       )
 
-      if (config.smtpHost.contains("gmail", ignoreCase = true) &&
+      if (isAuthCodeProvider(config.smtpHost) &&
           smtpUserState.value.isNotBlank() &&
           smtpUserState.value != fromEmailState.value) {
         Text(
@@ -454,7 +472,7 @@ fun MailPreferencesScreen(
           visualTransformation = PasswordVisualTransformation(),
       )
 
-      if (config.smtpHost.contains("gmail", ignoreCase = true) &&
+      if (isAuthCodeProvider(config.smtpHost) &&
           config.smtpPassword.replace(" ", "").length != 16) {
         Text(
             text = stringResource(R.string.warning_gmail_app_password),
@@ -466,13 +484,7 @@ fun MailPreferencesScreen(
             text = stringResource(R.string.generate_app_password),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.primary,
-            textDecoration = TextDecoration.Underline,
-            modifier =
-                Modifier.padding(bottom = 12.dp).clickable {
-                  val url = "https://myaccount.google.com/apppasswords"
-                  val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                  context.startActivity(intent)
-                },
+            modifier = Modifier.padding(bottom = 12.dp),
         )
       }
 

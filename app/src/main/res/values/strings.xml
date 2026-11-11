@@ -32,10 +32,10 @@
     <string name="warning_port_465_not_smtps">Warning: Port 465 is typically used with SMTPS (SSL/TLS).</string>
     <string name="warning_smtps_not_port_465">Warning: SMTPS (SSL/TLS) typically uses port 465.</string>
     <string name="smtp_username">SMTP Username</string>
-    <string name="warning_gmail_username">Warning: For Gmail, the SMTP username should be your full email address (same as From Email Address).</string>
+    <string name="warning_gmail_username">Note: For Gmail/QQ/163 and most providers, the SMTP username must be your full email address (e.g. name@qq.com, same as From Email Address).</string>
     <string name="smtp_password">SMTP Password</string>
-    <string name="warning_gmail_app_password">Your 16-digit Google \"App password\" needs to be entered, not your Google Account password.</string>
-    <string name="generate_app_password">Generate App Password</string>
+    <string name="warning_gmail_app_password">Use the mailbox \"Authorization Code\" (client-specific password) generated in web settings, not your login password.</string>
+    <string name="generate_app_password">Get Authorization Code (mailbox web settings: enable SMTP)</string>
     <string name="from_email_address">From Email Address</string>
     <string name="to_email_address">To Email Address</string>
     <string name="sending_email">Sending email ...</string>

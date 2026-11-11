@@ -20,7 +20,7 @@ val Context.smtpDataStore: DataStore<SmtpPreferences> by
     )
 
 data class SmtpConfig(
-    val smtpHost: String = "smtp.gmail.com",
+    val smtpHost: String = "smtp.qq.com",
     val smtpPort: Int = 465,
     val smtpUser: String = "",
     val smtpPassword: String = "",
